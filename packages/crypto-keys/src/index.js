@@ -160,8 +160,7 @@ export const signMessage = (
     .sign(
       message,
       pair.privateKey,
-      //https://github.com/bitcoinjs/bitcoinjs-message/issues/24
-      compressed, // pair.compressed
+      compressed, // sometimes pair.compressed is undefined! (see tests) so we set it to true most times!
       network.messagePrefix,
       opts
     )

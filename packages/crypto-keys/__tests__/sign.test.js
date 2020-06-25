@@ -33,13 +33,17 @@ const seed = bip39.mnemonicToSeedSync(mnemonic);
 
 describe('signing', () => {
   it('hard coded', () => {
-    var keyPair = bitcoin.ECPair.fromWIF(
+    const keyPair = bitcoin.ECPair.fromWIF(
       'L4rK1yDtCWekvXuE6oXD9jCYfFNV2cWRpVuPLBcCU2z8TrisoyY1'
     );
-    var privateKey = keyPair.privateKey;
-    var message = 'This is an example of a signed message.';
+    const privateKey = keyPair.privateKey;
+    const message = 'This is an example of a signed message.';
 
-    var signature = bitcoinMessage.sign(
+    // wondering if we should use pair.compressed?
+    // Thanks for the catch. Someone asked us to change the README examples to compressed but I forgot to change the signatures themselves.
+    // https://github.com/bitcoinjs/bitcoinjs-message/issues/24
+
+    const signature = bitcoinMessage.sign(
       message,
       privateKey,
       //https://github.com/bitcoinjs/bitcoinjs-message/issues/24
@@ -53,14 +57,7 @@ describe('signing', () => {
     const pair = bip32.fromSeed(seed);
 
     const message = 'hello there you are correct';
-    const signed1 = signMessage(
-      message,
-      pair,
-      //https://github.com/bitcoinjs/bitcoinjs-message/issues/24
-      // TODO WHY????????
-      true, // pair.compressed
-      network
-    );
+    const signed1 = signMessage(message, pair, true, network);
 
     const signature1 = signed1.toString('base64');
     expect(signature1).toMatchSnapshot();
@@ -90,26 +87,15 @@ describe('signing', () => {
     const pair = bip32.fromSeed(seed, network);
 
     const message = 'hello there';
-    const signed1 = signMessage(
-      message,
-      pair,
-      //https://github.com/bitcoinjs/bitcoinjs-message/issues/24
-      // TODO WHY????????
-      true, // pair.compressed
-      network
-    );
+    const signed1 = signMessage(message, pair, true, network);
     const { randomBytes } = require('crypto');
-    const signed2 = signMessage(
-      message,
-      pair,
-      //https://github.com/bitcoinjs/bitcoinjs-message/issues/24
-      // TODO WHY????????
-      true, // pair.compressed
-      network,
-      { extraEntropy: randomBytes(32) }
-    );
+    const signed2 = signMessage(message, pair, true, network, {
+      extraEntropy: randomBytes(32)
+    });
 
-    // TODO WHY????????
+    // TODO WHY is this not true?
+    // we have to set TRUE in the signMessage manually
+
     expect(typeof pair.compressed === 'undefined').toBe(true);
 
     const signature1 = signed1.toString('base64');
