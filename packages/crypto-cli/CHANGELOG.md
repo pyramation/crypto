@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/pyramation/crypto/compare/@pyramation/crypto-cli@0.1.1...@pyramation/crypto-cli@0.2.0) (2020-06-25)
+
+
+### Features
+
+* **crypto-cli:** cli ([243be0a](https://github.com/pyramation/crypto/commit/243be0a775ec59316fe4cd06f1e8aa63696041f3))
+
+
+
+
+
 ## [0.1.1](https://github.com/pyramation/crypto/compare/@pyramation/crypto-cli@0.1.0...@pyramation/crypto-cli@0.1.1) (2020-06-25)
 
 
