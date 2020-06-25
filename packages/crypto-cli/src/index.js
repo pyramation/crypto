@@ -2,7 +2,9 @@ import allCoins from '@pyramation/crypto-coins';
 import {
   newWallet,
   verifyPrivate,
-  infoForWalletNet
+  infoForWalletNet,
+  networkFromCurrencyGeneratorArray,
+  getNetworkFromHashAndWifVersion
 } from '@pyramation/crypto-keys';
 import inquirer from 'inquirer';
 import fuzzy from 'fuzzy';
@@ -59,7 +61,9 @@ inquirer
           var i = coins.indexOf(answer.coin);
           if (i > -1) {
             var picked = allCoins[i];
-            console.log(newWallet(picked[1], picked[2]));
+            const network = networkFromCurrencyGeneratorArray(picked);
+            const wallet = newWallet(network);
+            console.log({ public: wallet.public, private: wallet.private });
           }
         });
     } else if (a.cmd === 'customwallet') {
@@ -79,12 +83,12 @@ inquirer
           }
         ])
         .then((answer) => {
-          console.log(
-            newWallet(
-              parseInt(answer.publicKeyHash, 16),
-              parseInt(answer.privateKeyHash, 16)
-            )
+          const network = getNetworkFromHashAndWifVersion(
+            parseInt(answer.publicKeyHash, 16),
+            parseInt(answer.privateKeyHash, 16)
           );
+          const wallet = newWallet(network);
+          console.log({ public: wallet.public, private: wallet.private });
         });
     } else if (a.cmd === 'verify') {
       inquirer
@@ -107,7 +111,12 @@ inquirer
           var i = coins.indexOf(answer.coin);
           if (i > -1) {
             var picked = allCoins[i];
-            verifyPrivate(answer.privateKey, picked[1], picked[2]);
+            console.log(
+              verifyPrivate(
+                answer.privateKey,
+                networkFromCurrencyGeneratorArray(picked)
+              )
+            );
           }
         });
     } else if (a.cmd === 'newcoin') {
@@ -127,7 +136,10 @@ inquirer
           }
         ])
         .then((answer) => {
-          infoForWalletNet(answer.publicKey, answer.privateKey);
+          const info = infoForWalletNet(answer.publicKey, answer.privateKey);
+          console.log(info.message);
+          console.log('similar coins:');
+          console.log(info.similar.join(','));
         });
     }
   });

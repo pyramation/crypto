@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test infoForWalletNet 1`] = `
+Object {
+  "compressed": "7",
+  "message": "array to add to WalletGenerator.net:
+<nameOfCoin>
+0x26
+0x2e
+2
+7
+<donationAddr>
+    ",
+  "networkVersion": "26",
+  "privateKeyPrefix": "2e",
+  "similar": Array [
+    "BitGreen",
+  ],
+  "uncompressed": "2",
+}
+`;
+
+exports[`test networkInfoFromKeys 1`] = `
+Object {
+  "compressed": "7",
+  "networkVersion": "26",
+  "privateKeyPrefix": "2e",
+  "uncompressed": "2",
+}
+`;
+
+exports[`test privToPrivPrefix 1`] = `"2e"`;
+
+exports[`test pubToNetworkPrefix 1`] = `"26"`;
+
+exports[`test using wif 1`] = `"GNnjQYyr7tzhe6L3SZwwFWrf4JKR6ZHH97"`;

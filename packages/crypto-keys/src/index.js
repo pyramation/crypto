@@ -1,9 +1,10 @@
-import bitcoin from 'bitcoinjs-lib';
-import bs58check from 'bs58check';
 import allCoins from '@pyramation/crypto-coins';
-export const getNetwork = (pubKeyHash, wif) => {
+const bitcoin = require('bitcoinjs-lib');
+const bs58check = require('bs58check');
+
+export const getNetworkFromHashAndWifVersion = (pubKeyHash, wif) => {
   return {
-    messagePrefix: '',
+    messagePrefix: '\x19MyCoin Signed Message:\n',
     bip32: {
       public: 0x0, // TODO DONT USE
       private: 0x0 // TODO DONT USE
@@ -15,7 +16,7 @@ export const getNetwork = (pubKeyHash, wif) => {
 };
 
 export const getChars = (pubKeyHash, wif) => {
-  const network = getNetwork(pubKeyHash, wif);
+  const network = getNetworkFromHashAndWifVersion(pubKeyHash, wif);
 
   const cmp = {};
   for (let i = 0; i < 250; i++) {
@@ -43,7 +44,7 @@ export const privToPrivPrefix = (privateKey) => {
   return bs58check.decode(privateKey)[0].toString(16);
 };
 
-export const infoForWalletNet = function (pub, priv) {
+export const networkInfoFromKeys = function (pub, priv) {
   const networkVersion = pubToNetworkPrefix(pub);
   const privateKeyPrefix = privToPrivPrefix(priv);
 
@@ -57,16 +58,21 @@ export const infoForWalletNet = function (pub, priv) {
   if (compressed.length > 1) compressed = `[${compressed.join('')}]`;
   else compressed = compressed[0];
 
-  console.log('array to add to WalletGenerator.net:');
+  return {
+    networkVersion,
+    privateKeyPrefix,
+    uncompressed,
+    compressed
+  };
+};
 
-  console.log(
-    '<nameOfCoin>',
-    `0x${networkVersion}`,
-    `0x${privateKeyPrefix}`,
-    `'${uncompressed}'`,
-    `'${compressed}'`,
-    '<donationAddr>'
-  );
+export const infoForWalletNet = function (pub, priv) {
+  const {
+    networkVersion,
+    privateKeyPrefix,
+    uncompressed,
+    compressed
+  } = networkInfoFromKeys(pub, priv);
 
   const similar = allCoins
     .filter((c) => {
@@ -79,22 +85,41 @@ export const infoForWalletNet = function (pub, priv) {
     })
     .map((c) => c[0]);
 
-  if (similar.length) {
-    console.log(`\nyour coin is similar to ${similar.join(', ')}`);
-  }
-};
-
-export const newWallet = (pubKeyHash, wif) => {
-  const network = getNetwork(pubKeyHash, wif);
-  var pair = bitcoin.ECPair.makeRandom({ network });
   return {
-    public: pair.getAddress(),
-    private: pair.toWIF()
+    networkVersion,
+    privateKeyPrefix,
+    compressed,
+    uncompressed,
+    similar,
+    message: `array to add to WalletGenerator.net:
+<nameOfCoin>
+0x${networkVersion}
+0x${privateKeyPrefix}
+${uncompressed}
+${compressed}
+<donationAddr>
+    `
   };
 };
 
-export const verifyPrivate = (privateKey, pubKeyHash, wif) => {
-  const network = require('./get-network')(pubKeyHash, wif);
+export const networkFromCurrencyGeneratorArray = (array) => {
+  return getNetworkFromHashAndWifVersion(array[1], array[2]);
+};
+
+export const newWallet = (network) => {
+  const pair = bitcoin.ECPair.makeRandom({ network });
+  return {
+    public: getAddress(pair, network),
+    private: pair.toWIF(),
+    pair
+  };
+};
+
+export const getAddress = (pair, network) => {
+  return bitcoin.payments.p2pkh({ pubkey: pair.publicKey, network }).address;
+};
+
+export const verifyPrivate = (privateKey, network) => {
   const pair = bitcoin.ECPair.fromWIF(privateKey, network);
-  console.log(pair.getAddress());
+  return getAddress(pair, network);
 };
