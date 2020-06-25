@@ -33,6 +33,7 @@ export default [
     'GYjahzU24Am88oZco6oFtpNzgwJTp9S4eB'
   ],
   ['Bitconnect', 0x12, 0x92, '5', 'N', '8Zixqosp1KFejfcVQzTWa2EsPa2VxSgeJX'],
+  ['BitGreen', 0x26, 0x2e, '2', '7', 'GUdTMN6LZb2TfnD3AAYJDTJPXBy76kVuuG'],
   ['Birdcoin', 0x2f, 0xaf, '6', '[ST]', 'L97vGT4wRnyyiugHpLXzZzjqueN8YWRdRJ'],
   ['BitSynq', 0x3f, 0xbf, '7', 'V', 'SRtKRZxSjjwb9BXujkmvLfRHiutk7s7VXh'],
   ['BitZeny', 0x51, 0x80, '5', '[LK]', 'ZxUsfFszPsKdot4XnoZHZcMKg2PPS3NUji'],

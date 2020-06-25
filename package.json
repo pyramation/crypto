@@ -1,5 +1,5 @@
 {
-  "name": "crypto",
+  "name": "@pyramation/crypto",
   "version": "0.0.1",
   "publishConfig": {
     "access": "restricted"
