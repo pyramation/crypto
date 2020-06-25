@@ -1,6 +1,9 @@
 import allCoins from '@pyramation/crypto-coins';
+import * as bip32 from 'bip32';
+import * as bip39 from 'bip39';
 import * as bitcoin from 'bitcoinjs-lib';
 import * as bs58check from 'bs58check';
+import * as bitcoinMessage from 'bitcoinjs-message';
 
 export const getNetworkFromHashAndWifVersion = (pubKeyHash, wif) => {
   return {
@@ -122,4 +125,59 @@ export const getAddress = (pair, network) => {
 export const verifyPrivate = (privateKey, network) => {
   const pair = bitcoin.ECPair.fromWIF(privateKey, network);
   return getAddress(pair, network);
+};
+
+export const walletFromMnemonic = (mnemonic, network) => {
+  const seed = bip39.mnemonicToSeedSync(mnemonic);
+  const node = bip32.fromSeed(seed, network);
+  const strng = node.toBase58();
+  const restored = bip32.fromBase58(strng, network);
+
+  return {
+    mnemonic,
+    seed,
+    address: getAddress(node, network),
+    private: node.toWIF()
+  };
+};
+
+export const generateMnemonicWallet = (network) => {
+  const mnemonic = bip39.generateMnemonic();
+  return walletFromMnemonic(mnemonic, network);
+};
+
+export const verifyMessage = (message, pubkey, signature, network) =>
+  bitcoinMessage.verify(message, pubkey, signature, network.messagePrefix);
+
+export const signMessage = (
+  message,
+  pair,
+  compressed = true,
+  network,
+  opts = {}
+) =>
+  bitcoinMessage
+    .sign(
+      message,
+      pair.privateKey,
+      //https://github.com/bitcoinjs/bitcoinjs-message/issues/24
+      compressed, // pair.compressed
+      network.messagePrefix,
+      opts
+    )
+    .toString('base64');
+
+// compressed TRUE
+export const signMessageWithKey = (message, privkey, network) => {
+  const keyPair = bitcoin.ECPair.fromWIF(privkey, network);
+  const signature = signMessage(message, keyPair, true, network);
+  return signature.toString('base64');
+};
+
+// compressed TRUE
+export const signMessageWithMnemonic = (message, mnemonic, network) => {
+  const seed = bip39.mnemonicToSeedSync(mnemonic);
+  const keyPair = bip32.fromSeed(seed, network);
+  const signature = signMessage(message, keyPair, true, network);
+  return signature.toString('base64');
 };

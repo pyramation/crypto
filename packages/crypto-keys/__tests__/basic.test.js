@@ -11,6 +11,9 @@ import * as bitcoin from 'bitcoinjs-lib';
 import * as bs58check from 'bs58check';
 import * as wif from 'wif';
 
+// https://github.com/bitcoin/bitcoin/blob/master/src/chainparams.cpp#L126-L132
+// https://github.com/bitgreen/bitgreen/blob/master/src/chainparams.cpp#L227-L233
+
 // just treat it as a 4 byte hex, like uint32_t
 // bip32 pub is {0x04, 0x88, 0xB2, 0x1E} => 0x0488B21E => 76067358
 // bip32 priv is {0x04, 0x88, 0xAD, 0xE4} => 0x0488ADE4 => 76066276

@@ -5,7 +5,7 @@ import * as bitcoinMessage from 'bitcoinjs-message';
 import * as bs58check from 'bs58check';
 import * as wif from 'wif';
 
-import { getAddress } from '../src';
+import { getAddress, signMessage, verifyMessage } from '../src';
 
 // just treat it as a 4 byte hex, like uint32_t
 // bip32 pub is {0x04, 0x88, 0xB2, 0x1E} => 0x0488B21E => 76067358
@@ -53,14 +53,13 @@ describe('signing', () => {
     const pair = bip32.fromSeed(seed);
 
     const message = 'hello there you are correct';
-    const signed1 = bitcoinMessage.sign(
+    const signed1 = signMessage(
       message,
-      pair.privateKey,
+      pair,
       //https://github.com/bitcoinjs/bitcoinjs-message/issues/24
       // TODO WHY????????
       true, // pair.compressed
-      network.messagePrefix,
-      {}
+      network
     );
 
     const signature1 = signed1.toString('base64');
@@ -79,11 +78,11 @@ describe('signing', () => {
   it('network signature', () => {
     const message = 'gday hows it going';
     expect(
-      bitcoinMessage.verify(
+      verifyMessage(
         message,
         'GWhXzs3hCWNasa1jX5xaSZ6h3uDgc7Lb9H',
         'HwxUI5nHX63tuudKnNzdYTvir58oMo2/p8s44fEub1B/LiBexpj1c/66stsnShITqGePlV1/SqfIYRA4MUOPyvQ=',
-        network.messagePrefix
+        network
       )
     ).toBe(true);
   });
@@ -91,23 +90,22 @@ describe('signing', () => {
     const pair = bip32.fromSeed(seed, network);
 
     const message = 'hello there';
-    const signed1 = bitcoinMessage.sign(
+    const signed1 = signMessage(
       message,
-      pair.privateKey,
+      pair,
       //https://github.com/bitcoinjs/bitcoinjs-message/issues/24
       // TODO WHY????????
       true, // pair.compressed
-      network.messagePrefix,
-      {}
+      network
     );
     const { randomBytes } = require('crypto');
-    const signed2 = bitcoinMessage.sign(
+    const signed2 = signMessage(
       message,
-      pair.privateKey,
+      pair,
       //https://github.com/bitcoinjs/bitcoinjs-message/issues/24
       // TODO WHY????????
       true, // pair.compressed
-      network.messagePrefix,
+      network,
       { extraEntropy: randomBytes(32) }
     );
 
@@ -121,20 +119,10 @@ describe('signing', () => {
     expect(signature1).toMatchSnapshot();
 
     expect(
-      bitcoinMessage.verify(
-        message,
-        getAddress(pair, network),
-        signature1,
-        network.messagePrefix
-      )
+      verifyMessage(message, getAddress(pair, network), signature1, network)
     ).toBe(true);
     expect(
-      bitcoinMessage.verify(
-        message,
-        getAddress(pair, network),
-        signature2,
-        network.messagePrefix
-      )
+      verifyMessage(message, getAddress(pair, network), signature2, network)
     ).toBe(true);
   });
 });
