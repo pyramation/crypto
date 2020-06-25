@@ -1,6 +1,6 @@
 {
   "name": "@pyramation/crypto-keys",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "crypto keys",
   "author": "Dan Lynch <pyramation@gmail.com>",
   "homepage": "https://github.com/pyramation/crypto/tree/master/packages/crypto-keys#readme",
@@ -59,7 +59,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.4.2",
-    "@pyramation/crypto-coins": "^0.0.2",
+    "@pyramation/crypto-coins": "^0.1.0",
     "bitcoinjs-lib": "^3.3.2"
   }
 }
