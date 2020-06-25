@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`signing simple signature 1`] = `"H3A3w68+SARzFSgFKMPPl7ljDihQEOjAErwWs1XpOsREF/t/xDSxhP+akUrZMdSsYxJniMOhQUhCg5ZLm+k6SSw="`;
+exports[`signing simple signature 1`] = `"H/Va9HnIdDEr6FlScacwtXN2qUZIfXfwIEQoPOTNPGOjGXen90TXNUq5l6r0HAKDZYqi5q91V/s9A37ipkqOf2U="`;
 
-exports[`signing verify signature 1`] = `"H4/HkPJODf4ldvKKsB6EENM2W4kY/XWj3FuynDV1a3rYfk2IOVAZfnv6IvWH9u7lPad7qimci3ZmN4oQEJHlkgQ="`;
+exports[`signing verify signature 1`] = `"IFucd96TCXysqhy0SJtpv4wOxOvgQpQBjlwQ5nv2UoFzGqhQm347psGrW3r0VxZS2PldMdSQsQ2GhiLqiQJV58I="`;

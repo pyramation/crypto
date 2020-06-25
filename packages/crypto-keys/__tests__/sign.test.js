@@ -16,8 +16,7 @@ import { getAddress } from '../src';
 // signature HwxUI5nHX63tuudKnNzdYTvir58oMo2/p8s44fEub1B/LiBexpj1c/66stsnShITqGePlV1/SqfIYRA4MUOPyvQ=
 
 const network = {
-  messagePrefix: 'BitGreen Signed Message:\n',
-  //   messagePrefix: '\x19BitGreen Signed Message:\n',
+  messagePrefix: '\x19BitGreen Signed Message:\n',
   bech32: 'bg',
   bip32: {
     public: 0x0488b21e,
@@ -84,7 +83,7 @@ describe('signing', () => {
         message,
         'GWhXzs3hCWNasa1jX5xaSZ6h3uDgc7Lb9H',
         'HwxUI5nHX63tuudKnNzdYTvir58oMo2/p8s44fEub1B/LiBexpj1c/66stsnShITqGePlV1/SqfIYRA4MUOPyvQ=',
-        'BitGreen Signed Message:\n'
+        network.messagePrefix
       )
     ).toBe(true);
   });
