@@ -11,6 +11,9 @@
     "lib": "src",
     "test": "__tests__"
   },
+  "bin": {
+    "pyra-crypto": "main/cli.js"
+  },
   "files": [
     "main",
     "module"
