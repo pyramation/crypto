@@ -1,6 +1,6 @@
 {
   "name": "@pyramation/crypto-keys",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "crypto keys",
   "author": "Dan Lynch <pyramation@gmail.com>",
   "homepage": "https://github.com/pyramation/crypto/tree/master/packages/crypto-keys#readme",
