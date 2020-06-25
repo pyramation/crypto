@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bip39 verify mnemonic 1`] = `"praise you muffin lion enable neck grocery crumble super myself license ghost"`;
+
+exports[`bip39 verify mnemonic 2`] = `"GKVPivuTA5yh8MfrA1gfqLdjmDhutyjmZb"`;
+
+exports[`bip39 verify mnemonic 3`] = `"7oiKJETU51vWjAAVWRTBqi1Q9yQ8feLD36tBo4aiPsHnygqrGw5U"`;

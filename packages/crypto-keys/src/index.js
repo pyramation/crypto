@@ -1,6 +1,6 @@
 import allCoins from '@pyramation/crypto-coins';
-const bitcoin = require('bitcoinjs-lib');
-const bs58check = require('bs58check');
+import * as bitcoin from 'bitcoinjs-lib';
+import * as bs58check from 'bs58check';
 
 export const getNetworkFromHashAndWifVersion = (pubKeyHash, wif) => {
   return {

@@ -9,18 +9,24 @@ import {
 } from '../src';
 import * as bitcoin from 'bitcoinjs-lib';
 import * as bs58check from 'bs58check';
-const wif = require('wif');
+import * as wif from 'wif';
+
+// just treat it as a 4 byte hex, like uint32_t
+// bip32 pub is {0x04, 0x88, 0xB2, 0x1E} => 0x0488B21E => 76067358
+// bip32 priv is {0x04, 0x88, 0xAD, 0xE4} => 0x0488ADE4 => 76066276
 
 const network = {
   messagePrefix: '\x19MyCoin Signed Message:\n',
+  bech32: 'bg',
   bip32: {
-    public: 0x0, // NOT YET USED
-    private: 0x0 // NOT YET USED
+    public: 0x0488b21e,
+    private: 0x0488ade4
   },
   pubKeyHash: 0x26,
-  scriptHash: 0x0, // NOT YET USED
+  scriptHash: 0x6,
   wif: 0x2e
 };
+
 const PRIVATE_KEY = '7ud9qWb9VeiDRYUi68y5H2xogG8eZxztEZ2n1BvNFmdcND5Mrw9Z';
 const PUBLIC_KEY = 'GNnjQYyr7tzhe6L3SZwwFWrf4JKR6ZHH97';
 
