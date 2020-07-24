@@ -13,7 +13,6 @@ const url = /^http/.test(env.DAEMON_URL)
 
 const makereq = (method, params = []) => {
     const body = { jsonrpc: '1.0', id: 'curltext', method, params };
-    console.log(JSON.stringify(body));
     return new Promise((resolve, reject) => {
         request.post(
             {
@@ -29,6 +28,9 @@ const makereq = (method, params = []) => {
                 }
                 try {
                     const json = JSON.parse(data);
+                    if (json.error) {
+                        return reject(json.error);
+                    }
                     return resolve(json.result);
                 } catch (e) {
                     return reject(e);
