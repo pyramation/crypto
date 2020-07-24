@@ -1,6 +1,6 @@
 {
   "name": "@pyramation/rpc-server",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "rpc server",
   "author": "Dan Lynch <pyramation@gmail.com>",
   "homepage": "https://github.com/pyramation/crypto/tree/master/packages/rpc-server#readme",
