@@ -23,7 +23,7 @@
     "url": "https://github.com/pyramation/crypto"
   },
   "bin": {
-    "service": "main/server.js"
+    "rpc-server": "main/server.js"
   },
   "scripts": {
     "build:main": "BABEL_ENV=production babel src --out-dir main --delete-dir-on-start",
