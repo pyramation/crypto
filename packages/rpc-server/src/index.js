@@ -41,40 +41,39 @@ const makereq = (method, params = []) => {
 const str = (i) => i;
 const int = (i) => parseInt(i, 10);
 
-// 1 param
-[
+const COMMANDS = [
     ['getblockhash', int],
     ['getblock', str],
     ['getrawtransaction', str],
-    ['decoderawtransaction', str]
-].forEach(([method, cast]) => {
-    app.get(`/${method}/:first`, async (req, res, next) => {
-        try {
-            const result = await makereq(method, [cast(req.params.first)]);
-            res.set('Content-Type', 'application/json');
-            res.status(200).send(result);
-        } catch (e) {
-            next(e);
-        }
-    });
-});
+    ['decoderawtransaction', str],
+    ['sendrawtransaction', str],
+    ['getblockcount'],
+    ['getbestblockhash'],
+    ['getconnectioncount'],
+    ['getdifficulty'],
+    ['getblockchaininfo'],
+    ['getmininginfo'],
+    ['getpeerinfo'],
+    ['getrawmempool'],
+];
+const DIG = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+const makeUrl = (method, args) => {
+    if (!args.length) return `/${method}`;
+    return `/${method}/` + args.map((arg, i) => `:${DIG[i]}`).join('/');
+}
 
-// 0 param
-[
-    'getblockcount',
-    'getbestblockhash',
-    'getconnectioncount',
-    'getdifficulty',
-    'getblockchaininfo',
-    'getmininginfo',
-    'getpeerinfo',
-    'getrawmempool'
-].forEach((method) => {
-    app.get(`/${method}`, async (req, res, next) => {
+const callReq = async (method, req, args) => {
+    if (!args.length) return await makereq(method);
+    const casted = args.map((cast, i)=>  cast(req.params[DIG[i]]));
+    return await makereq(method, casted);
+}
+
+COMMANDS.forEach(([method, ...args]) => {
+    app.get(makeUrl(method, args), async (req, res, next) => {
         try {
-            const result = await makereq(method);
-            res.set('Content-Type', 'application/json');
-            res.status(200).send(result);
+            const result = await callReq(method, req, args);
+            res.status(200);
+            res.json(result);
         } catch (e) {
             next(e);
         }
