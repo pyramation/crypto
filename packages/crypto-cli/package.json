@@ -1,6 +1,6 @@
 {
   "name": "@pyramation/crypto-cli",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "crypto cli",
   "author": "Dan Lynch <pyramation@gmail.com>",
   "homepage": "https://github.com/pyramation/crypto/tree/master/packages/crypto-cli#readme",
@@ -66,9 +66,9 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.4.2",
-    "@pyramation/crypto-coins": "^0.1.0",
-    "@pyramation/crypto-keys": "^0.1.1",
-    "@pyramation/crypto-networks": "^0.1.0",
+    "@pyramation/crypto-coins": "^0.1.1",
+    "@pyramation/crypto-keys": "^0.1.2",
+    "@pyramation/crypto-networks": "^0.1.1",
     "fuzzy": "^0.1.3",
     "inquirer": "^5.0.1",
     "inquirer-autocomplete-prompt": "^0.12.1"
