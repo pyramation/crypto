@@ -1,6 +1,6 @@
 {
   "name": "@pyramation/crypto-cli",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "crypto cli",
   "author": "Dan Lynch <pyramation@gmail.com>",
   "homepage": "https://github.com/pyramation/crypto/tree/master/packages/crypto-cli#readme",
