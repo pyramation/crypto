@@ -11,7 +11,7 @@ export default () => {
       {
         type: 'string',
         name: 'parts',
-        message: 'enter the total number of parts (e.g. 5)',
+        message: 'enter the total number of parts that you have (e.g. 3)',
         required: true
       }
     ])
