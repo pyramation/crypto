@@ -10002,6 +10002,11 @@ secp256k1@^3.0.1:
     nan "^2.14.0"
     safe-buffer "^5.1.2"
 
+secrets.js-grempe@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/secrets.js-grempe/-/secrets.js-grempe-2.0.0.tgz#65b32bf6bfe4f40e8ed0e44dc74f469e293a4ab8"
+  integrity sha512-4xkOIaDAg998dTFXZUJTOoVbdLHfB818SMeLJ69ABccgGEKokxsoRFupAFfAImloUSKv4QUGNMgKVbKMf6z0Ug==
+
 semver-compare@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/semver-compare/-/semver-compare-1.0.0.tgz#0dee216a1c941ab37e9efb1788f6afc5ff5537fc"

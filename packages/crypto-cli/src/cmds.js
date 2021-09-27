@@ -6,6 +6,8 @@ import _newCoinForWalletGeneratorFromKeys from './commands/new-coin-for-wallet-g
 import _saltDecrypt from './commands/salt-decrypt';
 import _saltEncrypt from './commands/salt-encrypt';
 import _saltGenerate from './commands/salt-generate';
+import _shamirDecrypt from './commands/shamir-decrypt';
+import _shamirEncrypt from './commands/shamir-encrypt';
 import _signMessage from './commands/sign-message';
 import _verifyKey from './commands/verify-key';
 import _verifyMessage from './commands/verify-message';
@@ -18,6 +20,8 @@ Commands['newCoinForWalletGeneratorFromKeys'] = _newCoinForWalletGeneratorFromKe
 Commands['saltDecrypt'] = _saltDecrypt;
 Commands['saltEncrypt'] = _saltEncrypt;
 Commands['saltGenerate'] = _saltGenerate;
+Commands['shamirDecrypt'] = _shamirDecrypt;
+Commands['shamirEncrypt'] = _shamirEncrypt;
 Commands['signMessage'] = _signMessage;
 Commands['verifyKey'] = _verifyKey;
 Commands['verifyMessage'] = _verifyMessage;
